@@ -1,10 +1,10 @@
 <template>
-  <div class="form-view-container">
+  <div class="form-view-container" @click="handleOutSideClick">
     <div class="form-view-content">
       <Draggable
         class="form-view-list-element"
         ghost-class="customizer-tool-ghost"
-        :list="list"
+        :list="formViewElements"
         group="group1"
         @change="handleChange"
         handle=".drag-button"
@@ -15,26 +15,26 @@
         <transition-group type="transition" :name="!drag ? 'flip-list' : null">
           <div
             class="clone-tool-element"
-            v-for="item in list"
-            :key="item.rowId"
-            @click="handleElementClick(item.rowId)"
-            :class="{ activeRow: isActiveRow(item.rowId) }"
+            v-for="element in formViewElements"
+            :key="element.rowId"
+            @click="handleElementClick($event, element)"
+            :class="{ activeRow: isActiveRow(element.rowId) }"
           >
             <div
               class="clone-tool-handle-moving"
-              :class="{ activeRow: isActiveRow(item.rowId) }"
+              :class="{ activeRow: isActiveRow(element.rowId) }"
             >
               <a-icon type="caret-up" />
               <a-icon type="drag" class="drag-button" />
               <a-icon type="caret-down" />
             </div>
             <component
-              :is="returnedComponent(item.type)"
-              :properties="item.defaultProperties"
+              :is="returnedComponent(element.type)"
+              :properties="element.defaultProperties"
             />
             <div
               class="clone-tool-more-options"
-              :class="{ activeRow: isActiveRow(item.rowId) }"
+              :class="{ activeRow: isActiveRow(element.rowId) }"
             >
               <a-dropdown :trigger="['click']">
                 <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
@@ -44,10 +44,10 @@
                   <a-menu-item key="duplicate">
                     <a-icon type="copy" />Duplicate
                   </a-menu-item>
-                  <a-menu-item key="1">
+                  <a-menu-item key="copy">
                     <a-icon type="snippets" />Copy this element to
                   </a-menu-item>
-                  <a-menu-item key="3">
+                  <a-menu-item key="remove">
                     <a-icon type="delete" />Remove this element
                   </a-menu-item>
                 </a-menu>
@@ -62,17 +62,17 @@
 
 <script>
 // import {v4 as uuid} from 'uuid'
+import { mapState } from "vuex";
 import Draggable from "vuedraggable";
-import Button from "./Button";
-import Input from "./Input";
-import TextArea from "./TextArea";
-import CheckBox from "./CheckBox";
-import RadioButton from "./RadioButton";
+import Button from "../customizer/customizerTools/Button";
+import Input from "../customizer/customizerTools/Input";
+import TextArea from "../customizer/customizerTools/TextArea";
+import CheckBox from "../customizer/customizerTools/CheckBox";
+import RadioButton from "../customizer/customizerTools/RadioButton";
 
 export default {
   data: function() {
     return {
-      list: [],
       activeRow: "",
       drag: false,
     };
@@ -87,7 +87,12 @@ export default {
   },
   mounted() {},
   methods: {
-    handleChange() {},
+    handleChange() {
+      this.$store.commit(
+        "formViewModule/UPDATE_ELEMENTS",
+        this.formViewElements
+      );
+    },
     returnedComponent(type) {
       switch (type) {
         case "button":
@@ -104,14 +109,22 @@ export default {
           return "Div";
       }
     },
-    handleElementClick(rowId) {
-      this.activeRow = rowId;
+    handleElementClick(e, element) {
+      console.log(element);
+      e.stopPropagation();
+      this.activeRow = element.rowId;
+      this.$store.dispatch("customizerModule/changeActiveTab", "setting");
+    },
+    handleOutSideClick() {
+      this.activeRow = "";
+      this.$store.dispatch("customizerModule/changeActiveTab", "customizer");
     },
     isActiveRow(rowId) {
       return this.activeRow === rowId;
     },
   },
   computed: {
+    ...mapState("formViewModule", ["formViewElements"]),
     dragOptions() {
       return {
         animation: 200,
@@ -127,8 +140,9 @@ export default {
 <style scoped>
 .form-view-container {
   background-color: rgb(207, 205, 205);
-  width: 100%;
+  flex: 1;
   padding: 40px 0;
+  min-height: 100vh;
 }
 .form-view-content {
   width: 70%;

@@ -1,14 +1,14 @@
 <template>
   <div class="customizer-tool-wrap">
-    <a-icon class="customizer-tool-icon" :type="item.icon" />
-    <p class="customizer-tool-name">{{ item.name }}</p>
+    <a-icon class="customizer-tool-icon" :type="customizerTool.icon" />
+    <p class="customizer-tool-name">{{ customizerTool.name }}</p>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    item: {
+    customizerTool: {
       type: Object,
       required: true,
     },

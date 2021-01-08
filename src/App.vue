@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <a-row>
-      <a-col :span="6">
+    <a-row type="flex">
+      <a-col flex="300px">
         <FormCustomizer />
       </a-col>
-      <a-col :span="18">
+      <a-col flex="1">
         <FormView />
       </a-col>
     </a-row>
@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import FormCustomizer from "./components/FormCustomizer";
-import FormView from "./components/FormView";
+import FormCustomizer from "./components/customizer/FormCustomizer";
+import FormView from "./components/view/FormView";
 export default {
   name: "App",
   components: {
