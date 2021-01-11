@@ -22,7 +22,7 @@ export default {
       inputValue: 14,
     };
   },
-  mounted() {
+  created() {
     this.setDefault();
   },
   watch: {
@@ -35,7 +35,6 @@ export default {
       return value + "px";
     },
     handleChange() {
-      console.log(1);
       this.$store.dispatch("formViewModule/adjustSetting", {
         rowId: this.$store.state.customizerModule.currentRow.rowId,
         setting: "fontSize",

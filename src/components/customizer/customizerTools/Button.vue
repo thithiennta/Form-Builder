@@ -21,12 +21,7 @@
             'px ' +
             properties.paddingLeft +
             'px ',
-          border:
-            properties.borderWidth +
-            'px ' +
-            properties.borderType +
-            ' ' +
-            properties.borderColor,
+          ...border,
           width: properties.width + '%',
           color: properties.color,
           'background-color': properties.backgroundColor,
@@ -48,6 +43,47 @@ export default {
     properties: {
       type: Object,
       required: true,
+    },
+  },
+  computed: {
+    border() {
+      if (this.properties.fullBorderWidth) {
+        return {
+          "border-top":
+            this.properties.borderTopWidth +
+            "px " +
+            this.properties.borderStyle +
+            " " +
+            this.properties.borderColor,
+          "border-bottom":
+            this.properties.borderBottomWidth +
+            "px " +
+            this.properties.borderStyle +
+            " " +
+            this.properties.borderColor,
+          "border-left":
+            this.properties.borderLeftWidth +
+            "px " +
+            this.properties.borderStyle +
+            " " +
+            this.properties.borderColor,
+          "border-right":
+            this.properties.borderRightWidth +
+            "px " +
+            this.properties.borderStyle +
+            " " +
+            this.properties.borderColor,
+        };
+      } else {
+        return {
+          border:
+            this.properties.borderWidth +
+            "px " +
+            this.properties.borderStyle +
+            " " +
+            this.properties.borderColor,
+        };
+      }
     },
   },
 };

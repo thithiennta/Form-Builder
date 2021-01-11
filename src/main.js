@@ -14,6 +14,7 @@ import {
   Radio,
   Switch,
   Select,
+  Collapse,
 } from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
 
@@ -36,6 +37,7 @@ Vue.use(Radio);
 Vue.use(InputNumber);
 Vue.use(Switch);
 Vue.use(Select);
+Vue.use(Collapse);
 Vue.component("vuescroll", vuescroll);
 Vue.config.productionTip = false;
 

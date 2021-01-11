@@ -8,7 +8,10 @@
           @click="handleClickPicker"
           ref="colorPicker"
         >
-          <div class="color-picker-show-color"></div>
+          <div
+            class="color-picker-show-color"
+            :style="{ 'background-color': color.hex ? color.hex : color }"
+          ></div>
           <label>Select Color</label>
           <Sketch v-model="color" v-if="showSketch" id="colorSketch" />
         </div>
@@ -17,46 +20,47 @@
         <label class="property-label">Style</label>
         <a-select
           label-in-value
-          :default-value="{ key: 'dotted' }"
+          :default-value="{ key: style }"
           class="border-style-select"
+          @change="handleStyleChange"
         >
           <a-select-option
-            v-for="(style, index) in listBorderStyle"
+            v-for="(styleItem, index) in listBorderStyle"
             :key="index"
-            :value="style"
+            :value="styleItem"
           >
-            {{ style.charAt(0).toUpperCase() + style.slice(1) }}
+            {{ styleItem.charAt(0).toUpperCase() + styleItem.slice(1) }}
           </a-select-option>
         </a-select>
       </div>
       <div class="border-radius-header">
         <label class="property-label">Border Width</label>
         <div class="setting-element-switch">
-          <a-switch default-checked @change="onSwitchChange" />
+          <a-switch :default-checked="showFullWidth" @change="onSwitchChange" />
         </div>
       </div>
 
       <div class="border-row border-radius" v-if="showFullWidth">
         <div class="border-col">
           <label class="property-label">Top</label>
-          <a-input-number :min="1" :max="100" :default-value="10" />
+          <a-input-number :min="1" :max="100" v-model="borderTopWidth" />
         </div>
         <div class="border-col">
           <label class="property-label">Right</label>
-          <a-input-number :min="1" :max="100" :default-value="10" />
+          <a-input-number :min="1" :max="100" v-model="borderRightWidth" />
         </div>
         <div class="border-col">
           <label class="property-label">Bottom</label>
-          <a-input-number :min="1" :max="100" :default-value="10" />
+          <a-input-number :min="1" :max="100" v-model="borderBottomWidth" />
         </div>
         <div class="border-col">
           <label class="property-label">Left</label>
-          <a-input-number :min="1" :max="100" :default-value="10" />
+          <a-input-number :min="1" :max="100" v-model="borderLeftWidth" />
         </div>
       </div>
       <div class="border-row border-radius" v-if="!showFullWidth">
         <div class="border-col">
-          <a-input-number :min="1" :max="100" :default-value="10" />
+          <a-input-number :min="1" :max="100" v-model="borderWidth" />
         </div>
       </div>
     </div>
@@ -70,22 +74,76 @@ export default {
   components: {
     Sketch,
   },
+  props: ["rowId"],
+  created() {
+    this.setDefault();
+  },
   data: function() {
     return {
-      value: "center",
       color: "",
+      style: "solid",
       showSketch: false,
       listBorderStyle: ["solid", "dotted", "dashed", "double"],
       showFullWidth: true,
+      borderWidth: 1,
+      borderTopWidth: 1,
+      borderLeftWidth: 1,
+      borderRightWidth: 1,
+      borderBottomWidth: 1,
     };
   },
   watch: {
+    rowId() {
+      this.setDefault();
+    },
     showSketch: function(showSketch) {
       if (showSketch === true) {
         this.addEventClickOutSide();
       } else {
         this.removeEventClickOutSide();
       }
+    },
+    color(color) {
+      this.$store.dispatch("formViewModule/adjustSetting", {
+        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        setting: "borderColor",
+        value: color.hex ? color.hex : color,
+      });
+    },
+    borderWidth(value) {
+      this.$store.dispatch("formViewModule/adjustSetting", {
+        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        setting: "borderWidth",
+        value: value,
+      });
+    },
+    borderTopWidth(value) {
+      this.$store.dispatch("formViewModule/adjustSetting", {
+        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        setting: "borderTopWidth",
+        value: value,
+      });
+    },
+    borderBottomWidth(value) {
+      this.$store.dispatch("formViewModule/adjustSetting", {
+        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        setting: "borderBottomWidth",
+        value: value,
+      });
+    },
+    borderLeftWidth(value) {
+      this.$store.dispatch("formViewModule/adjustSetting", {
+        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        setting: "borderLeftWidth",
+        value: value,
+      });
+    },
+    borderRightWidth(value) {
+      this.$store.dispatch("formViewModule/adjustSetting", {
+        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        setting: "borderRightWidth",
+        value: value,
+      });
     },
   },
   methods: {
@@ -114,6 +172,63 @@ export default {
     },
     onSwitchChange() {
       this.showFullWidth = !this.showFullWidth;
+      this.$store.dispatch("formViewModule/adjustSetting", {
+        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        setting: "fullBorderWidth",
+        value: this.showFullWidth,
+      });
+      if (this.showFullWidth) {
+        this.borderTopWidth = this.borderLeftWidth = this.borderRightWidth = this.borderBottomWidth = this.borderWidth;
+        this.$store.dispatch("formViewModule/adjustSetting", {
+          rowId: this.$store.state.customizerModule.currentRow.rowId,
+          setting: "borderTopWidth",
+          value: this.borderTopWidth,
+        });
+        this.$store.dispatch("formViewModule/adjustSetting", {
+          rowId: this.$store.state.customizerModule.currentRow.rowId,
+          setting: "borderLeftWidth",
+          value: this.borderLeftWidth,
+        });
+        this.$store.dispatch("formViewModule/adjustSetting", {
+          rowId: this.$store.state.customizerModule.currentRow.rowId,
+          setting: "borderRightWidth",
+          value: this.borderRightWidth,
+        });
+        this.$store.dispatch("formViewModule/adjustSetting", {
+          rowId: this.$store.state.customizerModule.currentRow.rowId,
+          setting: "borderBottomWidth",
+          value: this.borderBottomWidth,
+        });
+      } else {
+        // this.borderWidth = 1;
+        // this.$store.dispatch("formViewModule/adjustSetting", {
+        //   rowId: this.$store.state.customizerModule.currentRow.rowId,
+        //   setting: "borderWidth",
+        //   value: this.borderWidth,
+        // });
+      }
+    },
+    handleStyleChange({ key }) {
+      this.style = key;
+      this.$store.dispatch("formViewModule/adjustSetting", {
+        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        setting: "borderStyle",
+        value: this.style,
+      });
+    },
+    setDefault() {
+      const rowId = this.$store.state.customizerModule.currentRow.rowId;
+      const element = this.$store.state.formViewModule.formViewElements.find(
+        (e) => e.rowId === rowId
+      );
+      this.color = element.defaultProperties.borderColor;
+      this.style = element.defaultProperties.borderStyle;
+      this.showFullWidth = element.defaultProperties.fullBorderWidth;
+      this.borderWidth = element.defaultProperties.borderWidth;
+      this.borderTopWidth = element.defaultProperties.borderTopWidth;
+      this.borderBottomWidth = element.defaultProperties.borderBottomWidth;
+      this.borderLeftWidth = element.defaultProperties.borderLeftWidth;
+      this.borderRightWidth = element.defaultProperties.borderRightWidth;
     },
   },
 };

@@ -27,7 +27,7 @@ export default {
       value: "center",
     };
   },
-  mounted() {
+  created() {
     this.setDefault();
   },
   watch: {

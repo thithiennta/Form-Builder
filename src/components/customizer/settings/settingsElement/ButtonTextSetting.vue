@@ -15,7 +15,7 @@ export default {
     };
   },
   props: ["rowId"],
-  mounted() {
+  created() {
     this.setDefault();
   },
   watch: {
