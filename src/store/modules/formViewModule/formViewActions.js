@@ -5,4 +5,7 @@ export default {
   moveElement({ commit }, payload) {
     commit("UPDATE_ELEMENTS", payload);
   },
+  adjustSetting({ commit }, payload) {
+    commit("UPDATE_ELEMENT_PROPERTY", payload);
+  },
 };

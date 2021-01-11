@@ -5,7 +5,10 @@
       'background-color': properties.rowBackgroundColor,
     }"
   >
-    <div class="clone-tool-container">
+    <div
+      class="clone-tool-container"
+      :style="{ 'text-align': properties.align }"
+    >
       <a
         href="#"
         :style="{
@@ -28,6 +31,8 @@
           color: properties.color,
           'background-color': properties.backgroundColor,
           'border-radius': properties.borderRadius + 'px',
+          'text-align': 'center',
+          'font-size': properties.fontSize + 'px',
         }"
         style="display:inline-block"
       >
@@ -48,4 +53,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+a {
+  min-width: fit-content;
+}
+</style>

@@ -7,6 +7,7 @@
         :min="1"
         :max="100"
         :tip-formatter="tipFormat"
+        @change="handleChange"
       />
     </div>
   </div>
@@ -14,14 +15,39 @@
 
 <script>
 export default {
+  props: ["rowId"],
+
   data: function() {
     return {
       inputValue: 14,
     };
   },
+  mounted() {
+    this.setDefault();
+  },
+  watch: {
+    rowId() {
+      this.setDefault();
+    },
+  },
   methods: {
     tipFormat(value) {
       return value + "px";
+    },
+    handleChange() {
+      console.log(1);
+      this.$store.dispatch("formViewModule/adjustSetting", {
+        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        setting: "fontSize",
+        value: this.inputValue,
+      });
+    },
+    setDefault() {
+      const rowId = this.$store.state.customizerModule.currentRow.rowId;
+      const element = this.$store.state.formViewModule.formViewElements.find(
+        (e) => e.rowId === rowId
+      );
+      this.inputValue = element.defaultProperties.fontSize;
     },
   },
 };

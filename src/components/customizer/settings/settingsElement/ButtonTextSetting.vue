@@ -2,7 +2,7 @@
   <div class="setting-element-wrapper">
     <div class="form-customizer-title">Button Text</div>
     <div class="setting-element-body">
-      <a-input :value="text" />
+      <a-input v-model="text" @change="handleChange" />
     </div>
   </div>
 </template>
@@ -14,7 +14,31 @@ export default {
       text: "Click here",
     };
   },
-  methods: {},
+  props: ["rowId"],
+  mounted() {
+    this.setDefault();
+  },
+  watch: {
+    rowId() {
+      this.setDefault();
+    },
+  },
+  methods: {
+    handleChange() {
+      this.$store.dispatch("formViewModule/adjustSetting", {
+        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        setting: "textValue",
+        value: this.text,
+      });
+    },
+    setDefault() {
+      const rowId = this.$store.state.customizerModule.currentRow.rowId;
+      const element = this.$store.state.formViewModule.formViewElements.find(
+        (e) => e.rowId === rowId
+      );
+      this.text = element.defaultProperties.textValue;
+    },
+  },
 };
 </script>
 

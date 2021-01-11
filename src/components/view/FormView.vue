@@ -110,10 +110,14 @@ export default {
       }
     },
     handleElementClick(e, element) {
-      console.log(element);
       e.stopPropagation();
       this.activeRow = element.rowId;
+      const currentRow = {
+        rowId: this.activeRow,
+        validSettings: element.validSettings,
+      };
       this.$store.dispatch("customizerModule/changeActiveTab", "setting");
+      this.$store.dispatch("customizerModule/changeCurrentRow", currentRow);
     },
     handleOutSideClick() {
       this.activeRow = "";

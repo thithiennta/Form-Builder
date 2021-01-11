@@ -8,6 +8,7 @@
             v-for="(setting, index) in currentRow.validSettings"
             :is="setting"
             :key="index"
+            :rowId="rowId"
           ></component>
         </div>
       </div>
@@ -38,7 +39,15 @@ export default {
     ButtonTextSetting,
     FontFamilySetting,
   },
+  data() {
+    return {
+      rowId: "",
+    };
+  },
   methods: {},
+  updated() {
+    this.rowId = this.$store.state.customizerModule.currentRow.rowId;
+  },
   computed: {
     ...mapState("customizerModule", ["currentRow"]),
   },

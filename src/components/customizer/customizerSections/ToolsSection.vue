@@ -46,6 +46,7 @@ export default {
     handleCloneTool(item) {
       return {
         ...item,
+        defaultProperties: { ...item.defaultProperties },
         rowId: uuid(),
       };
     },
