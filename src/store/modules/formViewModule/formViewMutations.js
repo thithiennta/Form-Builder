@@ -6,6 +6,10 @@ export default {
     var element = state.formViewElements.find(
       (element) => element.rowId === payload.rowId
     );
-    element.defaultProperties[payload.setting] = payload.value;
+    if (payload.subSetting) {
+      element.properties[payload.setting][payload.subSetting] = payload.value;
+    } else {
+      element.properties[payload.setting] = payload.value;
+    }
   },
 };

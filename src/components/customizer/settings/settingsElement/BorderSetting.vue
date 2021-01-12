@@ -36,7 +36,7 @@
       <div class="border-radius-header">
         <label class="property-label">Border Width</label>
         <div class="setting-element-switch">
-          <a-switch :default-checked="showFullWidth" @change="onSwitchChange" />
+          <a-switch :checked="showFullWidth" @change="onSwitchChange" />
         </div>
       </div>
 
@@ -84,7 +84,7 @@ export default {
       style: "solid",
       showSketch: false,
       listBorderStyle: ["solid", "dotted", "dashed", "double"],
-      showFullWidth: true,
+      showFullWidth: false,
       borderWidth: 1,
       borderTopWidth: 1,
       borderLeftWidth: 1,
@@ -106,42 +106,48 @@ export default {
     color(color) {
       this.$store.dispatch("formViewModule/adjustSetting", {
         rowId: this.$store.state.customizerModule.currentRow.rowId,
-        setting: "borderColor",
+        setting: "border",
+        subSetting: "borderColor",
         value: color.hex ? color.hex : color,
       });
     },
     borderWidth(value) {
       this.$store.dispatch("formViewModule/adjustSetting", {
         rowId: this.$store.state.customizerModule.currentRow.rowId,
-        setting: "borderWidth",
+        setting: "border",
+        subSetting: "borderWidth",
         value: value,
       });
     },
     borderTopWidth(value) {
       this.$store.dispatch("formViewModule/adjustSetting", {
         rowId: this.$store.state.customizerModule.currentRow.rowId,
-        setting: "borderTopWidth",
+        setting: "border",
+        subSetting: "borderTopWidth",
         value: value,
       });
     },
     borderBottomWidth(value) {
       this.$store.dispatch("formViewModule/adjustSetting", {
         rowId: this.$store.state.customizerModule.currentRow.rowId,
-        setting: "borderBottomWidth",
+        setting: "border",
+        subSetting: "borderBottomWidth",
         value: value,
       });
     },
     borderLeftWidth(value) {
       this.$store.dispatch("formViewModule/adjustSetting", {
         rowId: this.$store.state.customizerModule.currentRow.rowId,
-        setting: "borderLeftWidth",
+        setting: "border",
+        subSetting: "borderLeftWidth",
         value: value,
       });
     },
     borderRightWidth(value) {
       this.$store.dispatch("formViewModule/adjustSetting", {
         rowId: this.$store.state.customizerModule.currentRow.rowId,
-        setting: "borderRightWidth",
+        setting: "border",
+        subSetting: "borderRightWidth",
         value: value,
       });
     },
@@ -174,29 +180,34 @@ export default {
       this.showFullWidth = !this.showFullWidth;
       this.$store.dispatch("formViewModule/adjustSetting", {
         rowId: this.$store.state.customizerModule.currentRow.rowId,
-        setting: "fullBorderWidth",
+        setting: "border",
+        subSetting: "fullBorderWidth",
         value: this.showFullWidth,
       });
       if (this.showFullWidth) {
         this.borderTopWidth = this.borderLeftWidth = this.borderRightWidth = this.borderBottomWidth = this.borderWidth;
         this.$store.dispatch("formViewModule/adjustSetting", {
           rowId: this.$store.state.customizerModule.currentRow.rowId,
-          setting: "borderTopWidth",
+          setting: "border",
+          subSetting: "borderTopWidth",
           value: this.borderTopWidth,
         });
         this.$store.dispatch("formViewModule/adjustSetting", {
           rowId: this.$store.state.customizerModule.currentRow.rowId,
-          setting: "borderLeftWidth",
+          setting: "border",
+          subSetting: "borderLeftWidth",
           value: this.borderLeftWidth,
         });
         this.$store.dispatch("formViewModule/adjustSetting", {
           rowId: this.$store.state.customizerModule.currentRow.rowId,
-          setting: "borderRightWidth",
+          setting: "border",
+          subSetting: "borderRightWidth",
           value: this.borderRightWidth,
         });
         this.$store.dispatch("formViewModule/adjustSetting", {
           rowId: this.$store.state.customizerModule.currentRow.rowId,
-          setting: "borderBottomWidth",
+          setting: "border",
+          subSetting: "borderBottomWidth",
           value: this.borderBottomWidth,
         });
       } else {
@@ -212,7 +223,8 @@ export default {
       this.style = key;
       this.$store.dispatch("formViewModule/adjustSetting", {
         rowId: this.$store.state.customizerModule.currentRow.rowId,
-        setting: "borderStyle",
+        setting: "border",
+        subSetting: "borderStyle",
         value: this.style,
       });
     },
@@ -221,14 +233,14 @@ export default {
       const element = this.$store.state.formViewModule.formViewElements.find(
         (e) => e.rowId === rowId
       );
-      this.color = element.defaultProperties.borderColor;
-      this.style = element.defaultProperties.borderStyle;
-      this.showFullWidth = element.defaultProperties.fullBorderWidth;
-      this.borderWidth = element.defaultProperties.borderWidth;
-      this.borderTopWidth = element.defaultProperties.borderTopWidth;
-      this.borderBottomWidth = element.defaultProperties.borderBottomWidth;
-      this.borderLeftWidth = element.defaultProperties.borderLeftWidth;
-      this.borderRightWidth = element.defaultProperties.borderRightWidth;
+      this.color = element.properties.border.borderColor;
+      this.style = element.properties.border.borderStyle;
+      this.showFullWidth = element.properties.border.fullBorderWidth;
+      this.borderWidth = element.properties.border.borderWidth;
+      this.borderTopWidth = element.properties.border.borderTopWidth;
+      this.borderBottomWidth = element.properties.border.borderBottomWidth;
+      this.borderLeftWidth = element.properties.border.borderLeftWidth;
+      this.borderRightWidth = element.properties.border.borderRightWidth;
     },
   },
 };

@@ -13,25 +13,26 @@
         href="#"
         :style="{
           padding:
-            properties.paddingTop +
+            properties.padding.paddingTop +
             'px ' +
-            properties.paddingRight +
+            properties.padding.paddingRight +
             'px ' +
-            properties.paddingBottom +
+            properties.padding.paddingBottom +
             'px ' +
-            properties.paddingLeft +
+            properties.padding.paddingLeft +
             'px ',
-          ...border,
           width: properties.width + '%',
-          color: properties.color,
+          height: properties.height + 'px',
           'background-color': properties.backgroundColor,
-          'border-radius': properties.borderRadius + 'px',
+          'border-radius': properties.border.borderRadius + 'px',
           'text-align': 'center',
-          'font-size': properties.fontSize + 'px',
+          color: properties.text.color,
+          'font-size': properties.text.fontSize + 'px',
+          ...border,
         }"
         style="display:inline-block"
       >
-        <span>{{ properties.textValue }}</span>
+        <span>{{ properties.text.textValue }}</span>
       </a>
     </div>
   </div>
@@ -45,43 +46,46 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {};
+  },
   computed: {
     border() {
       if (this.properties.fullBorderWidth) {
         return {
           "border-top":
-            this.properties.borderTopWidth +
+            this.properties.border.borderTopWidth +
             "px " +
-            this.properties.borderStyle +
+            this.properties.border.borderStyle +
             " " +
-            this.properties.borderColor,
+            this.properties.border.borderColor,
           "border-bottom":
-            this.properties.borderBottomWidth +
+            this.properties.border.borderBottomWidth +
             "px " +
-            this.properties.borderStyle +
+            this.properties.border.borderStyle +
             " " +
-            this.properties.borderColor,
+            this.properties.border.borderColor,
           "border-left":
-            this.properties.borderLeftWidth +
+            this.properties.border.borderLeftWidth +
             "px " +
-            this.properties.borderStyle +
+            this.properties.border.borderStyle +
             " " +
-            this.properties.borderColor,
+            this.properties.border.borderColor,
           "border-right":
-            this.properties.borderRightWidth +
+            this.properties.border.borderRightWidth +
             "px " +
-            this.properties.borderStyle +
+            this.properties.border.borderStyle +
             " " +
-            this.properties.borderColor,
+            this.properties.border.borderColor,
         };
       } else {
         return {
           border:
-            this.properties.borderWidth +
+            this.properties.border.borderWidth +
             "px " +
-            this.properties.borderStyle +
+            this.properties.border.borderStyle +
             " " +
-            this.properties.borderColor,
+            this.properties.border.borderColor,
         };
       }
     },

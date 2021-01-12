@@ -30,7 +30,7 @@
             </div>
             <component
               :is="returnedComponent(element.type)"
-              :properties="element.defaultProperties"
+              :properties="element.properties"
             />
             <div
               class="clone-tool-more-options"

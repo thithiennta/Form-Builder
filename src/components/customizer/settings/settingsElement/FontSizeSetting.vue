@@ -37,7 +37,8 @@ export default {
     handleChange() {
       this.$store.dispatch("formViewModule/adjustSetting", {
         rowId: this.$store.state.customizerModule.currentRow.rowId,
-        setting: "fontSize",
+        setting: "text",
+        subSetting: "fontSize",
         value: this.inputValue,
       });
     },
@@ -46,7 +47,7 @@ export default {
       const element = this.$store.state.formViewModule.formViewElements.find(
         (e) => e.rowId === rowId
       );
-      this.inputValue = element.defaultProperties.fontSize;
+      this.inputValue = element.properties.text.fontSize;
     },
   },
 };

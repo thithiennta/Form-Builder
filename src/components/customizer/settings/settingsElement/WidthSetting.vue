@@ -45,7 +45,7 @@ export default {
       const element = this.$store.state.formViewModule.formViewElements.find(
         (e) => e.rowId === rowId
       );
-      this.inputValue = element.defaultProperties.width;
+      this.inputValue = element.properties.width;
     },
   },
 };

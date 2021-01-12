@@ -48,7 +48,7 @@ export default {
       const element = this.$store.state.formViewModule.formViewElements.find(
         (e) => e.rowId === rowId
       );
-      this.value = element.defaultProperties.align;
+      this.value = element.properties.align;
     },
   },
 };

@@ -44,9 +44,15 @@ export default {
   methods: {
     handleChange() {},
     handleCloneTool(item) {
+      const { padding, border, text } = item.properties;
       return {
         ...item,
-        defaultProperties: { ...item.defaultProperties },
+        properties: {
+          ...item.properties,
+          border: { ...border },
+          padding: { ...padding },
+          text: { ...text },
+        },
         rowId: uuid(),
       };
     },

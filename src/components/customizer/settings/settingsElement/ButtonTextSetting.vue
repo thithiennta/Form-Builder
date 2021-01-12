@@ -27,7 +27,8 @@ export default {
     handleChange() {
       this.$store.dispatch("formViewModule/adjustSetting", {
         rowId: this.$store.state.customizerModule.currentRow.rowId,
-        setting: "textValue",
+        setting: "text",
+        subSetting: "textValue",
         value: this.text,
       });
     },
@@ -36,7 +37,7 @@ export default {
       const element = this.$store.state.formViewModule.formViewElements.find(
         (e) => e.rowId === rowId
       );
-      this.text = element.defaultProperties.textValue;
+      this.text = element.properties.text.textValue;
     },
   },
 };

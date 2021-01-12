@@ -45,7 +45,7 @@ export default {
       const element = this.$store.state.formViewModule.formViewElements.find(
         (e) => e.rowId === rowId
       );
-      this.inputValue = element.defaultProperties.height;
+      this.inputValue = element.properties.height;
     },
   },
 };
