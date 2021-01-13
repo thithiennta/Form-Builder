@@ -22,7 +22,6 @@
             properties.padding.paddingLeft +
             'px ',
           width: properties.width + '%',
-          height: properties.height + 'px',
           'background-color': properties.backgroundColor,
           'border-radius': properties.border.borderRadius + 'px',
           'text-align': 'center',
@@ -32,7 +31,7 @@
         }"
         style="display:inline-block"
       >
-        <span>{{ properties.text.textValue }}</span>
+        {{ properties.text.textValue }}
       </a>
     </div>
   </div>
@@ -51,7 +50,7 @@ export default {
   },
   computed: {
     border() {
-      if (this.properties.fullBorderWidth) {
+      if (this.properties.border.fullBorderWidth) {
         return {
           "border-top":
             this.properties.border.borderTopWidth +

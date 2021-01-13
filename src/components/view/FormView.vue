@@ -29,8 +29,9 @@
               <a-icon type="caret-down" />
             </div>
             <component
-              :is="returnedComponent(element.type)"
+              :is="element.type"
               :properties="element.properties"
+              :rId="element.rowId"
             />
             <div
               class="clone-tool-more-options"
@@ -69,11 +70,14 @@ import Input from "../customizer/customizerTools/Input";
 import TextArea from "../customizer/customizerTools/TextArea";
 import CheckBox from "../customizer/customizerTools/CheckBox";
 import RadioButton from "../customizer/customizerTools/RadioButton";
+import OneColumn from "../customizer/customizerTools/OneColumn";
+import TwoColumn from "../customizer/customizerTools/TwoColumn";
+import ThreeColumn from "../customizer/customizerTools/ThreeColumn";
+import FourColumn from "../customizer/customizerTools/FourColumn";
 
 export default {
   data: function() {
     return {
-      activeRow: "",
       drag: false,
     };
   },
@@ -84,6 +88,10 @@ export default {
     TextArea,
     CheckBox,
     RadioButton,
+    OneColumn,
+    TwoColumn,
+    ThreeColumn,
+    FourColumn,
   },
   mounted() {},
   methods: {
@@ -93,38 +101,21 @@ export default {
         this.formViewElements
       );
     },
-    returnedComponent(type) {
-      switch (type) {
-        case "button":
-          return "Button";
-        case "input":
-          return "Input";
-        case "textarea":
-          return "TextArea";
-        case "checkbox":
-          return "CheckBox";
-        case "radio":
-          return "RadioButton";
-        default:
-          return "Div";
-      }
-    },
     handleElementClick(e, element) {
       e.stopPropagation();
-      this.activeRow = element.rowId;
-      const currentRow = {
-        rowId: this.activeRow,
-        validSettings: element.validSettings,
-      };
+      const currentRow = element;
       this.$store.dispatch("customizerModule/changeActiveTab", "setting");
       this.$store.dispatch("customizerModule/changeCurrentRow", currentRow);
     },
     handleOutSideClick() {
-      this.activeRow = "";
+      const currentRow = {
+        rowId: "",
+      };
       this.$store.dispatch("customizerModule/changeActiveTab", "customizer");
+      this.$store.dispatch("customizerModule/changeCurrentRow", currentRow);
     },
     isActiveRow(rowId) {
-      return this.activeRow === rowId;
+      return rowId === this.$store.state.customizerModule.currentRow.rowId;
     },
   },
   computed: {
@@ -155,16 +146,6 @@ export default {
   background-color: rgb(234, 230, 230);
   text-align: center;
 }
-</style>
-<style>
-.clone-tool-row {
-  padding: 10px 0;
-  text-align: center;
-}
-.clone-tool-container {
-  width: 90%;
-  margin: auto;
-}
 .clone-tool-element {
   position: relative;
   z-index: 1;
@@ -177,6 +158,17 @@ export default {
   margin: 10px 0;
   box-shadow: 0px 4px 22px -10px grey;
 }
+</style>
+<style>
+.clone-tool-row {
+  padding: 10px 0;
+  text-align: center;
+}
+.clone-tool-container {
+  width: 90%;
+  margin: auto;
+}
+
 .clone-tool-handle-moving {
   display: none;
   position: absolute;
@@ -244,6 +236,45 @@ export default {
 .no-move {
   transition: transform 0s;
 }
-.ghost {
+.one-column-wrapper {
+  padding: 5px;
+}
+.one-column-wrapper:empty {
+  border: 1px dashed rgb(186, 186, 186);
+}
+
+.one-column-wrapper .customizer-tool-ghost .customizer-tool-wrap {
+  margin: 0;
+  background-color: rgb(224, 222, 222);
+  padding: 10px 0;
+  border-radius: unset;
+  border: none;
+}
+
+.one-column-wrapper .customizer-tool-ghost > i {
+  display: none;
+}
+.clone-tool-element.activeRow {
+  box-shadow: 0px 4px 22px -10px rgb(174, 173, 173);
+}
+.one-column-wrapper:empty:after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 1px;
+  background-color: rgb(201, 196, 196);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.one-column-wrapper:empty:before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 15px;
+  background-color: rgb(201, 196, 196);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>

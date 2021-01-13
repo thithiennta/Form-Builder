@@ -44,17 +44,13 @@ export default {
   methods: {
     handleChange() {},
     handleCloneTool(item) {
-      const { padding, border, text } = item.properties;
-      return {
+      var clone = require("lodash.clonedeep");
+      const element = {
         ...item,
-        properties: {
-          ...item.properties,
-          border: { ...border },
-          padding: { ...padding },
-          text: { ...text },
-        },
         rowId: uuid(),
       };
+      const cloneElement = clone(element);
+      return cloneElement;
     },
   },
 };

@@ -38,16 +38,13 @@ export default {
   methods: {
     handleChange() {
       this.$store.dispatch("formViewModule/adjustSetting", {
-        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        element: this.$store.state.customizerModule.currentRow,
         setting: "align",
         value: this.value,
       });
     },
     setDefault() {
-      const rowId = this.$store.state.customizerModule.currentRow.rowId;
-      const element = this.$store.state.formViewModule.formViewElements.find(
-        (e) => e.rowId === rowId
-      );
+      const element = this.$store.state.customizerModule.currentRow;
       this.value = element.properties.align;
     },
   },

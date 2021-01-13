@@ -1,7 +1,7 @@
 [
     { 
     "name": "Button",
-    "type": "button",
+    "type": "Button",
     "icon": "plus-square",
     "properties": {
       "align": "center",
@@ -44,7 +44,7 @@
   },
   {
     "name": "Input",
-    "type": "input",
+    "type": "Input",
     "icon": "font-colors",
     "defaultProperties": {
       "align": "center",
@@ -84,7 +84,7 @@
   },
   {
     "name": "Text Area",
-    "type": "textarea",
+    "type": "TextArea",
     "icon": "bold",
     "defaultProperties": {
       "align": "center",
@@ -109,7 +109,7 @@
   },
   {
     "name": "Check Box",
-    "type": "checkbox",
+    "type": "CheckBox",
     "icon": "check",
     "defaultProperties": {
       "align": "center",
@@ -127,7 +127,7 @@
   },
   {
     "name": "Radio Button",
-    "type": "radio",
+    "type": "Radio",
     "icon": "plus-circle",
     "defaultProperties": {
       "align": "center",

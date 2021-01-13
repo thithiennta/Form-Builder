@@ -36,17 +36,15 @@ export default {
     },
     handleChange() {
       this.$store.dispatch("formViewModule/adjustSetting", {
-        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        element: this.$store.state.customizerModule.currentRow,
         setting: "text",
         subSetting: "fontSize",
         value: this.inputValue,
       });
     },
     setDefault() {
-      const rowId = this.$store.state.customizerModule.currentRow.rowId;
-      const element = this.$store.state.formViewModule.formViewElements.find(
-        (e) => e.rowId === rowId
-      );
+      const element = this.$store.state.customizerModule.currentRow;
+
       this.inputValue = element.properties.text.fontSize;
     },
   },

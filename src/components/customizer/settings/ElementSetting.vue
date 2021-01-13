@@ -8,7 +8,7 @@
             v-for="(setting, index) in currentRow.validSettings"
             :is="setting"
             :key="index"
-            :rowId="rowId"
+            :rowId="currentRow.rowId"
           ></component>
         </div>
       </div>
@@ -27,6 +27,8 @@ import PaddingRowSetting from "./settingsElement/PaddingRowSetting";
 import BorderSetting from "./settingsElement/BorderSetting";
 import ButtonTextSetting from "./settingsElement/ButtonTextSetting";
 import FontFamilySetting from "./settingsElement/FontFamilySetting";
+import WidthColumnSetting from "./settingsElement/WidthColumnSetting";
+import WidthTwoColumnSetting from "./settingsElement/WidthColumnSetting";
 export default {
   components: {
     SettingHeader,
@@ -38,16 +40,13 @@ export default {
     BorderSetting,
     ButtonTextSetting,
     FontFamilySetting,
+    WidthColumnSetting,
+    WidthTwoColumnSetting,
   },
   data() {
-    return {
-      rowId: "",
-    };
+    return {};
   },
   methods: {},
-  updated() {
-    this.rowId = this.$store.state.customizerModule.currentRow.rowId;
-  },
   computed: {
     ...mapState("customizerModule", ["currentRow"]),
   },

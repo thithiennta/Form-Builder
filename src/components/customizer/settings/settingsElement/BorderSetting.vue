@@ -105,7 +105,7 @@ export default {
     },
     color(color) {
       this.$store.dispatch("formViewModule/adjustSetting", {
-        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        element: this.$store.state.customizerModule.currentRow,
         setting: "border",
         subSetting: "borderColor",
         value: color.hex ? color.hex : color,
@@ -113,7 +113,7 @@ export default {
     },
     borderWidth(value) {
       this.$store.dispatch("formViewModule/adjustSetting", {
-        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        element: this.$store.state.customizerModule.currentRow,
         setting: "border",
         subSetting: "borderWidth",
         value: value,
@@ -121,7 +121,7 @@ export default {
     },
     borderTopWidth(value) {
       this.$store.dispatch("formViewModule/adjustSetting", {
-        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        element: this.$store.state.customizerModule.currentRow,
         setting: "border",
         subSetting: "borderTopWidth",
         value: value,
@@ -129,7 +129,8 @@ export default {
     },
     borderBottomWidth(value) {
       this.$store.dispatch("formViewModule/adjustSetting", {
-        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        element: this.$store.state.customizerModule.currentRow,
+        parent: this.$store.state.customizerModule.currentRow.parent,
         setting: "border",
         subSetting: "borderBottomWidth",
         value: value,
@@ -137,7 +138,7 @@ export default {
     },
     borderLeftWidth(value) {
       this.$store.dispatch("formViewModule/adjustSetting", {
-        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        element: this.$store.state.customizerModule.currentRow,
         setting: "border",
         subSetting: "borderLeftWidth",
         value: value,
@@ -145,7 +146,7 @@ export default {
     },
     borderRightWidth(value) {
       this.$store.dispatch("formViewModule/adjustSetting", {
-        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        element: this.$store.state.customizerModule.currentRow,
         setting: "border",
         subSetting: "borderRightWidth",
         value: value,
@@ -179,7 +180,7 @@ export default {
     onSwitchChange() {
       this.showFullWidth = !this.showFullWidth;
       this.$store.dispatch("formViewModule/adjustSetting", {
-        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        element: this.$store.state.customizerModule.currentRow,
         setting: "border",
         subSetting: "fullBorderWidth",
         value: this.showFullWidth,
@@ -187,25 +188,25 @@ export default {
       if (this.showFullWidth) {
         this.borderTopWidth = this.borderLeftWidth = this.borderRightWidth = this.borderBottomWidth = this.borderWidth;
         this.$store.dispatch("formViewModule/adjustSetting", {
-          rowId: this.$store.state.customizerModule.currentRow.rowId,
+          element: this.$store.state.customizerModule.currentRow,
           setting: "border",
           subSetting: "borderTopWidth",
           value: this.borderTopWidth,
         });
         this.$store.dispatch("formViewModule/adjustSetting", {
-          rowId: this.$store.state.customizerModule.currentRow.rowId,
+          element: this.$store.state.customizerModule.currentRow,
           setting: "border",
           subSetting: "borderLeftWidth",
           value: this.borderLeftWidth,
         });
         this.$store.dispatch("formViewModule/adjustSetting", {
-          rowId: this.$store.state.customizerModule.currentRow.rowId,
+          element: this.$store.state.customizerModule.currentRow,
           setting: "border",
           subSetting: "borderRightWidth",
           value: this.borderRightWidth,
         });
         this.$store.dispatch("formViewModule/adjustSetting", {
-          rowId: this.$store.state.customizerModule.currentRow.rowId,
+          element: this.$store.state.customizerModule.currentRow,
           setting: "border",
           subSetting: "borderBottomWidth",
           value: this.borderBottomWidth,
@@ -222,17 +223,14 @@ export default {
     handleStyleChange({ key }) {
       this.style = key;
       this.$store.dispatch("formViewModule/adjustSetting", {
-        rowId: this.$store.state.customizerModule.currentRow.rowId,
+        element: this.$store.state.customizerModule.currentRow,
         setting: "border",
         subSetting: "borderStyle",
         value: this.style,
       });
     },
     setDefault() {
-      const rowId = this.$store.state.customizerModule.currentRow.rowId;
-      const element = this.$store.state.formViewModule.formViewElements.find(
-        (e) => e.rowId === rowId
-      );
+      const element = this.$store.state.customizerModule.currentRow;
       this.color = element.properties.border.borderColor;
       this.style = element.properties.border.borderStyle;
       this.showFullWidth = element.properties.border.fullBorderWidth;

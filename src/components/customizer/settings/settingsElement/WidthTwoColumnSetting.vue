@@ -2,9 +2,18 @@
   <div class="setting-element-wrapper">
     <div class="form-customizer-title">Width</div>
     <div class="setting-element-body">
+      <label class="property-label">First column</label>
       <a-slider
-        v-model="inputValue"
-        :min="1"
+        v-model="inputValue1"
+        :min="0"
+        :max="100"
+        :tip-formatter="tipFormat"
+        @change="handleChange"
+      />
+      <label class="property-label">Second column</label>
+      <a-slider
+        v-model="inputValue2"
+        :min="0"
         :max="100"
         :tip-formatter="tipFormat"
         @change="handleChange"
@@ -17,7 +26,8 @@
 export default {
   data: function() {
     return {
-      inputValue: 30,
+      inputValue1: 0,
+      inputValue2: 0,
     };
   },
   props: ["rowId"],
@@ -28,22 +38,31 @@ export default {
     rowId() {
       this.setDefault();
     },
+    inputValue1() {
+      this.inputValue2 = 100 - this.inputValue1;
+    },
+    inputValue2() {
+      this.inputValue1 = 100 - this.inputValue2;
+    },
   },
+  computed: {},
   methods: {
     tipFormat(value) {
       return value + "%";
     },
     handleChange() {
+      const inputValue = [this.inputValue1, this.inputValue2];
       this.$store.dispatch("formViewModule/adjustSetting", {
         element: this.$store.state.customizerModule.currentRow,
-        setting: "width",
-        value: this.inputValue,
+        setting: "columnsWidth",
+        value: inputValue,
       });
     },
     setDefault() {
       const element = this.$store.state.customizerModule.currentRow;
-
-      this.inputValue = element.properties.width;
+      const columnsWidth = element.properties.columnsWidth;
+      this.inputValue1 = columnsWidth[0];
+      this.inputValue2 = columnsWidth[1];
     },
   },
 };
