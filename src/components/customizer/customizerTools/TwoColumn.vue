@@ -12,6 +12,7 @@
         :list="elementList1"
         group="group1"
         @change="handleChange"
+        @input="handleInput"
         :style="{ width: properties.columnsWidth[0] + '%' }"
       >
         <div
@@ -107,6 +108,9 @@ export default {
     },
     isActiveRow(rowId) {
       return rowId === this.$store.state.customizerModule.currentRow.rowId;
+    },
+    handleInput(e) {
+      console.log(e);
     },
   },
 };

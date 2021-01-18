@@ -9,7 +9,8 @@ export default {
     customizerTools: CustomizerTools,
     currentRow: {
       rowId: "",
-      validSettings: [],
+      validSettings: [
+      ],
     },
   },
   actions: customizerActions,

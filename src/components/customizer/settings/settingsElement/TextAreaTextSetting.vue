@@ -15,9 +15,13 @@
         <Sketch v-model="color" v-if="showSketch" id="colorSketch" />
       </div>
     </div>
-    <div class="form-customizer-title">Button Text</div>
+    <div class="form-customizer-title">Placeholder</div>
     <div class="setting-element-body">
-      <a-input v-model="text" @change="handleChange" />
+      <a-input v-model="placeholder" @change="handleChangePlaceholder" />
+    </div>
+    <div class="form-customizer-title">TextArea Name</div>
+    <div class="setting-element-body">
+      <a-input v-model="name" @change="handleChangeName" />
     </div>
   </div>
 </template>
@@ -31,7 +35,8 @@ export default {
   },
   data: function() {
     return {
-      text: "Click here",
+      placeholder: "Enter text",
+      name: "textarea_name",
       color: "",
       showSketch: false,
     };
@@ -84,17 +89,27 @@ export default {
       )
         this.showSketch = !this.showSketch;
     },
-    handleChange() {
+    handleChangePlaceholder() {
       this.$store.dispatch("formViewModule/adjustSetting", {
         element: this.$store.state.customizerModule.currentRow,
         setting: "text",
-        subSetting: "textValue",
-        value: this.text,
+        subSetting: "placeholder",
+        value: this.placeholder,
+      });
+    },
+    handleChangeName() {
+      this.$store.dispatch("formViewModule/adjustSetting", {
+        element: this.$store.state.customizerModule.currentRow,
+        setting: "text",
+        subSetting: "textareaName",
+        value: this.name,
       });
     },
     setDefault() {
       const element = this.$store.state.customizerModule.currentRow;
-      this.text = element.properties.text.textValue;
+
+      this.placeholder = element.properties.text.placeholder;
+      this.name = element.properties.text.textareaName;
       this.color = element.properties.text.color;
     },
   },

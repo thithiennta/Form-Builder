@@ -46,11 +46,11 @@
     "name": "Input",
     "type": "Input",
     "icon": "font-colors",
-    "defaultProperties": {
+    "properties": {
       "align": "center",
       "width": 30,
       "rowBackgroundColor": "#ffffff",
-      "backgroundColor": "#40e0d0",
+      "backgroundColor": "#ffffff",
       "padding": {
         "paddingLeft": 5,
         "paddingRight": 5,
@@ -69,7 +69,8 @@
         "borderRadius": 5
       },
       "text":{
-        "placeHolder": "Enter input",
+        "placeholder": "Enter input",
+        "inputName": "input_name",
         "color": "#ff0000",
         "fontSize": 14
       }
@@ -78,68 +79,111 @@
     "validSettings": [
       "AlignSetting",
       "BorderSetting",
-      "ButtonTextSetting",
-      "FontSizeSetting"
+      "InputTextSetting",
+      "FontSizeSetting",      
+      "WidthSetting",
+      "HeightSetting"
     ]
   },
   {
     "name": "Text Area",
     "type": "TextArea",
     "icon": "bold",
-    "defaultProperties": {
+    "properties": {
       "align": "center",
-      "paddingLeft": 5,
-      "paddingRight": 5,
-      "paddingTop": 5,
-      "paddingBottom": 5,
-      "borderWidth": 1,
-      "borderStyle": "solid",
-      "borderColor": "#40e0d0",
-      "placeholder": "Enter input",
-      "borderRadius": 5,
       "width": 30,
-      "rowBackgroundColor": "#ffffff"
+      "rowBackgroundColor": "#ffffff",
+      "backgroundColor": "#ffffff",
+      "padding": {
+        "paddingLeft": 5,
+        "paddingRight": 5,
+        "paddingTop": 5,
+        "paddingBottom": 5
+      },
+      "border" : {
+        "fullBorderWidth": false,
+        "borderTopWidth": 1,
+        "borderBottomWidth": 1,
+        "borderLeftWidth": 1,
+        "borderRightWidth": 1,
+        "borderWidth": 1,
+        "borderStyle": "solid",
+        "borderColor": "#40e0d0",
+        "borderRadius": 5
+      },
+      "text":{
+        "placeholder": "Enter text",
+        "textareaName": "textarea_name",
+        "color": "#ff0000",
+        "fontSize": 14
+      }
+      
     },
     "validSettings": [
       "AlignSetting",
       "BorderSetting",
-      "ButtonTextSetting",
-      "FontSizeSetting"
+      "TextAreaTextSetting",
+      "FontSizeSetting",      
+      "WidthSetting",
+      "HeightSetting"
     ]
   },
   {
     "name": "Check Box",
     "type": "CheckBox",
     "icon": "check",
-    "defaultProperties": {
+    "properties": {
       "align": "center",
+      "width": 30,
       "rowBackgroundColor": "#ffffff",
-      "checkboxName": "",
-      "checkboxValue": "",
-      "checkboxText": "Check box"
+      "backgroundColor": "#ffffff",
+      "padding": {
+        "paddingLeft": 5,
+        "paddingRight": 5,
+        "paddingTop": 5,
+        "paddingBottom": 5
+      },
+      "text":{
+        "checkboxName": "checkbox_name",
+        "checkboxValue": "checkbox_value",
+        "checkboxText": "Checkbox Value",
+        "color": "#ff0000",
+        "fontSize": 14
+      }
     },
     "validSettings": [
       "AlignSetting",
-      "BorderSetting",
-      "ButtonTextSetting",
+      "CheckboxTextSetting",
       "FontSizeSetting"
     ]
   },
   {
     "name": "Radio Button",
-    "type": "Radio",
+    "type": "RadioButton",
     "icon": "plus-circle",
-    "defaultProperties": {
+    "properties": {
       "align": "center",
+      "width": 30,
       "rowBackgroundColor": "#ffffff",
-      "radioName": "",
-      "radioValue": "",
-      "radioText": "Radio button"
+      "backgroundColor": "#ffffff",
+      "padding": {
+        "paddingLeft": 5,
+        "paddingRight": 5,
+        "paddingTop": 5,
+        "paddingBottom": 5
+      },
+      "text":{
+        "radioName": "radio_name",
+        "radioValue": "radio_value",
+        "radioText": "Radio Value",
+        "color": "#ff0000",
+        "fontSize": 14
+      }
+      
     },
     "validSettings": [
       "AlignSetting",
-      "BorderSetting",
-      "ButtonTextSetting",
+      "RadioTextSetting",
       "FontSizeSetting"
     ]
   }

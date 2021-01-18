@@ -1,6 +1,6 @@
 export default {
   UPDATE_ELEMENTS(state, payload) {
-    state.formViewElements = payload;
+    state.formViewElements = JSON.parse(JSON.stringify(payload));
   },
   UPDATE_ELEMENT_PROPERTY(state, payload) {
     const element = payload.element;

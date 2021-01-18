@@ -7,13 +7,22 @@
   >
     <div class="clone-tool-container">
       <div class="clone-tool-checkbox-wrapper">
-        <label>
+        <label :style="{ ['margin-' + properties.align]: 0 }">
           <input
             type="radio"
-            :name="properties.radioName"
-            :value="properties.radioValue"
+            :name="properties.text.radioName"
+            :value="properties.text.radioValue"
+            :style="{
+              width: properties.text.fontSize + 'px',
+              height: properties.text.fontSize + 'px',
+            }"
           />
-          <span>{{ properties.radioText }}</span>
+          <span
+            :style="{
+              'font-size': properties.text.fontSize + 'px',
+            }"
+            >{{ properties.text.radioText }}</span
+          >
         </label>
       </div>
     </div>

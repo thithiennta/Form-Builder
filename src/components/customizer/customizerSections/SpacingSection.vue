@@ -89,6 +89,17 @@ export default {
           elements: [],
           validSettings: ["WidthColumnSetting"],
         },
+        {
+          name: "Divider",
+          type: "Divider",
+          icon: "line",
+          properties: {
+            align: "center",
+            rowBackgroundColor: "#ffffff",
+            backgroundColor: "#40e0d0",
+          },
+          validSettings: [],
+        },
       ],
     };
   },
@@ -103,11 +114,11 @@ export default {
       if (item.type === "TwoColumn") {
         element.elements = [
           {
-            ...clone(this.list[0]),
+            ...this.list[0],
             rowId: uuid(),
           },
           {
-            ...clone(this.list[0]),
+            ...this.list[0],
             rowId: uuid(),
           },
         ];
@@ -149,10 +160,16 @@ export default {
         ];
       }
       const cloneElement = clone(element);
+      // cloneElement.elements[0] = {};
       return cloneElement;
     },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.form-customizer-container .customizer-tool-wrapper {
+  width: 50%;
+  display: inline-block;
+}
+</style>

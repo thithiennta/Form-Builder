@@ -29,6 +29,10 @@ import ButtonTextSetting from "./settingsElement/ButtonTextSetting";
 import FontFamilySetting from "./settingsElement/FontFamilySetting";
 import WidthColumnSetting from "./settingsElement/WidthColumnSetting";
 import WidthTwoColumnSetting from "./settingsElement/WidthColumnSetting";
+import InputTextSetting from "./settingsElement/InputTextSetting";
+import TextAreaTextSetting from "./settingsElement/TextAreaTextSetting";
+import CheckboxTextSetting from "./settingsElement/CheckboxTextSetting";
+import RadioTextSetting from "./settingsElement/RadioTextSetting";
 export default {
   components: {
     SettingHeader,
@@ -42,6 +46,10 @@ export default {
     FontFamilySetting,
     WidthColumnSetting,
     WidthTwoColumnSetting,
+    InputTextSetting,
+    TextAreaTextSetting,
+    CheckboxTextSetting,
+    RadioTextSetting,
   },
   data() {
     return {};

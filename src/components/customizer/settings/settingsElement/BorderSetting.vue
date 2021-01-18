@@ -256,34 +256,6 @@ export default {
 .ant-input-number {
   width: 100%;
 }
-.border-color-picker {
-  display: flex;
-  align-items: center;
-  background-color: gray;
-  width: fit-content;
-  padding-right: 20px;
-  cursor: pointer;
-  border-radius: 5px;
-  position: relative;
-  margin-bottom: 10px;
-}
-.border-color-picker label {
-  color: white;
-  font-size: 12px;
-  cursor: pointer;
-}
-.color-picker-show-color {
-  width: 25px;
-  height: 25px;
-  border-radius: 5px;
-  background-color: white;
-  margin-right: 10px;
-}
-.vc-sketch {
-  position: absolute;
-  top: calc(100% + 5px);
-  z-index: 999;
-}
 .border-style-select {
   width: 100px;
 }
